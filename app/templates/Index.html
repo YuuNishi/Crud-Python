@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <title>Home</title>
+</head>
+<body>
+    <main>
+            <h1 class="text-center">Gerenciamento de Perfis </h1>
+            <div class="row">
+                <div class="col-sm-6 m-auto">
+                    <div class="card">
+                        <form name = "form" action="{%if db%}/update/{{db.id}}/{%else%}/create/{% endif %}" id = "form" method="post">
+                            <div class="card-header">
+                               {{ action }} Perfil do Pixiv
+                            </div>
+                        <div class="card-body">
+                            <br>
+                            <label>PixivId</label>
+                            <div class="form-group mt-3">
+                                {{form.PixivId}}
+                            </div>
+                            <label class="mt-2">Email</label>
+                            <div class="form-group mt-3">
+                                {{form.Email}}
+                            </div>
+                            <label class="mt-2">Nick</label>
+                            <div class="form-group mt-3 ">
+                                {{form.Nick}}
+                            </div>
+
+                            <button type= "submit" id = "btn_salvar" class="mt-2 btn btn-outline-primary">Salvar</button>
+                        </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div id ="Card"class="row">
+                <div class="col-sm-6 m-auto mt-5" id="table">
+                        <div class="card">
+                                <div class="card-header">
+                                        Listagem de Perfis
+                                </div>
+                                <div class="card-body">
+                                    <table class="table table-striped">
+                                          <thead>
+                                            <tr>
+                                                <th scope="col">Id</th>
+                                                <th scope="col">PixivId</th>
+                                                <th scope="col">Email</th>
+                                                <th scope="col">Nick</th>
+                                                <th scope="col"></th>
+                                                <th scope="col"></th>
+                                            </tr>
+                                          </thead>
+                                          <tbody>
+                                            {%for val in dbs%}
+                                            <tr>
+                                                <th>{{val.id}}</th>
+                                                <td>{{val.PixivId}}</td>
+                                                <td>{{val.Email}}</td>
+                                                <td>{{val.Nick}}</td>
+                                                <td><a href="/modify/{{val.id}}" class="btn btn-outline-primary">Editar</a></td>
+                                                <td><a href="/delete/{{val.id}}" class="btn btn-outline-warning btn-delete">Deletar</a></td>
+                                            </tr>
+                                            {%endfor%}
+                                          </tbody>
+
+                                        </table>
+                                </div>
+                        </div>
+                </div>
+            </div>
+
+    </main>
+    {% load static %}
+    <script src="{% static 'script.js' %}"></script>
+</body>
+</html>
